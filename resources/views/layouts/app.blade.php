@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Campus Today') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -25,9 +25,17 @@
         @include('includes.navbar')
         <main class="py-4">
            <div class="container">
+               @include('includes.messages')
                @yield('content')
            </div>
         </main>
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+
 </body>
 </html>

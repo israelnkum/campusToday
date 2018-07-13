@@ -28,6 +28,21 @@
                         {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
                     {{--</li>--}}
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">{{ __('Home') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">{{ __('About') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">{{ __('Services') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">{{ __('Blog') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts/create">{{ __('Create Post') }}</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
