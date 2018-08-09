@@ -7,6 +7,16 @@ use App\Post;
 class postController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -46,6 +56,8 @@ class postController extends Controller
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->user_id = auth()->user()->id;
+        //$post->author = auth()->user()->name;
         $post->save();
 
         return redirect('/posts')->with('success','Post Created');
@@ -73,7 +85,15 @@ class postController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+
+        //check for correct uer
+
+        if(auth()->user()->id !== $post -> user_id){
+            return redirect('/posts')->with('error','Unauthorized Page');
+
+        }
         return view('posts.edit')->with('post',$post);
+
 
     }
 
@@ -111,6 +131,11 @@ class postController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
+        if(auth()->user()->id !== $post -> user_id){
+            return redirect('/posts')->with('error','Unauthorized Page');
+
+        }
         $post->delete();
         return redirect('/posts')->with('success','Post Deleted');
 

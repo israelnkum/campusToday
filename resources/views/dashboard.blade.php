@@ -13,8 +13,32 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                        <a class="btn btn-secondary" href="/posts/create">{{ __('Create Post') }}</a>
 
-                    You are logged in!
+                       <h3 class="display-4">Your Blog Posts</h3>
+                    @if(count($posts)>0)
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    <th>Title</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                @foreach($posts as $post)
+                                    <tr>
+                                        <td>{{$post->title}}</td>
+                                        <td><a class="btn btn-success" href="/post/{{$post->id}}/edit">Edit</a></td>
+                                        <td>
+                                            {!!Form::open(['action' => ['postController@destroy',$post->id],'method' => 'POST'])!!}
+                                            {{Form::hidden('_method','DELETE')}}
+                                            {{Form::submit('Delete',['class' => 'btn btn-danger'])}}
+                                            {!!Form::close()!!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        @else
+                            <h3 class="display-4">Create some Post</h3>
+                        @endif
                 </div>
             </div>
         </div>
